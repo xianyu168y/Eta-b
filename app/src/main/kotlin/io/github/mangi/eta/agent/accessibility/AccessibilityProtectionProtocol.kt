@@ -1,5 +1,7 @@
 package io.github.mangi.eta.agent.accessibility
 
+import io.github.mangi.eta.BuildConfig
+
 import android.net.Uri
 import android.os.Bundle
 
@@ -16,8 +18,8 @@ internal object AccessibilityProtectionProtocol {
         "io.github.mangi.eta.action.SET_ACCESSIBILITY_PROTECTION"
     const val ACTION_RECOVER =
         "io.github.mangi.eta.action.RECOVER_ACCESSIBILITY_SERVICE"
-    const val PERMISSION =
-        "io.github.mangi.eta.permission.CONTROL_ACCESSIBILITY_PROTECTION"
+    // PATCH(coexist): 权限名跟随编译期 applicationId。
+    val PERMISSION: String = BuildConfig.APPLICATION_ID + ".permission.CONTROL_ACCESSIBILITY_PROTECTION"
     const val RECEIVER_PACKAGE = "android"
 
     const val EXTRA_PROTOCOL_VERSION = "protocol_version"
@@ -30,7 +32,8 @@ internal object AccessibilityProtectionProtocol {
     const val SETTING_NAME = "eta_accessibility_protection_enabled"
     const val DEFAULT_ENABLED = false
 
-    const val HEALTH_AUTHORITY = "io.github.mangi.eta.accessibility.health"
+    // PATCH(coexist): authority 跟随编译期 applicationId。
+    val HEALTH_AUTHORITY: String = BuildConfig.APPLICATION_ID + ".accessibility.health"
     const val HEALTH_METHOD = "accessibility_health"
     const val HEALTH_STATUS = "status"
     const val HEALTH_STATUS_CONNECTED = "connected"

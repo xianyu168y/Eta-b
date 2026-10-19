@@ -32,10 +32,11 @@ val buildMetadataSuffix = buildMetadata?.let { "+$it" }.orEmpty()
 android {
     namespace = "io.github.mangi.eta"
     compileSdk = 37
-    ndkVersion = libs.versions.ndk.get()
+    ndkVersion = "30.0.16248370"
 
     defaultConfig {
-        applicationId = "io.github.mangi.eta"
+        applicationId = "io.github.mangi.eta.fresh"
+        // 共存补丁：独立包名，可与官方版并装
         minSdk = 33
         targetSdk = 37
         // versionCode 规则：yyyyMMdd + 两位当日序号（01 起），发版时随 versionName 一起手动递增。
@@ -80,7 +81,7 @@ android {
     }
 
     buildFeatures {
-        buildConfig = false
+        buildConfig = true
         compose = true
     }
 

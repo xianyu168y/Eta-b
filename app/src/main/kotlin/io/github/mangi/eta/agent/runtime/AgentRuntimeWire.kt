@@ -17,6 +17,7 @@ import io.github.mangi.eta.data.model.ModelReasoningCapabilities
 import io.github.mangi.eta.data.model.ReasoningEffort
 import java.io.Closeable
 import java.util.concurrent.atomic.AtomicBoolean
+import io.github.mangi.eta.BuildConfig
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.Serializable
 import java.io.File
@@ -83,7 +84,8 @@ internal object AgentRuntimeWire {
     /** service -> client：返回是否成功重新订阅指定 run。 */
     const val MSG_ATTACH_RUN_RESPONSE = 12
 
-    private const val MODULE_PACKAGE = "io.github.mangi.eta"
+    // PATCH(coexist): 绑定目标为编译期 applicationId，支持改包名共存版。
+    private val MODULE_PACKAGE: String = BuildConfig.APPLICATION_ID
     private const val SERVICE_CLASS = "io.github.mangi.eta.agent.runtime.AgentRuntimeService"
 
     private const val KEY_TYPE = "type"

@@ -111,7 +111,8 @@ internal class AgentAppState(
     private var defaultProviderId: String? = null
     private var fileAttachmentOwnerVersion = 0L
 
-    private var selectedConversationId: String? = initialConversations.selectedConversationId
+    // PATCH(start-fresh): 启动时总是落到新会话，不恢复上次选中的会话。
+    private var selectedConversationId: String? = null
     private var conversationsById: Map<String, AgentChatHomeUiState> = initialConversations.conversationsById
     private var conversationTitles: Map<String, String> = initialConversations.titles
     private var conversationUpdatedAt: Map<String, Long> = initialConversations.updatedAt
@@ -136,6 +137,10 @@ internal class AgentAppState(
     init {
         refreshConversationSummaries()
         observeRuntimeSelection()
+        // PATCH(start-fresh): 启动时清掉持久化的选中指针，避免进程被杀重建后回到旧会话。
+        scope.launch(Dispatchers.IO) {
+            runCatching { persistConversations() }
+        }
         runtimeRecoveryInProgress.set(true)
         scope.launch(Dispatchers.IO) {
             try {
