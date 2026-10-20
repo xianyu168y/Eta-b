@@ -39,9 +39,12 @@ android {
         // 共存补丁：独立包名，可与官方版并装
         minSdk = 33
         targetSdk = 37
-        // versionCode 规则：yyyyMMdd + 两位当日序号（01 起），发版时随 versionName 一起手动递增。
-        versionCode = 2026101401
-        versionName = "3.3.1"
+        // —— 发版只需改这两行 ——
+        // versionName：开发迭代带 -N 后缀（3.3.1-1、3.3.1-2 …），正式版去掉后缀（3.3.1）。
+        // versionCode：yyyyMMdd + 两位当日序号（01 起），必须严格大于上一次构建，否则覆盖升级会失败。
+        // 两者用 scripts/bump-version.sh <versionName> 一次改好，不要手改其中一个。
+        versionCode = 2026102002
+        versionName = "3.3.1-2"
     }
 
     signingConfigs {
